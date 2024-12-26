@@ -1,0 +1,14 @@
+body {
+    display: flex;
+    flex-flow: column wrap;
+    justify-content: center;
+    margin-top: 50px;
+}
+
+ul#errors li {
+    color: red;
+}
+
+p#msg {
+    color: green;
+}
