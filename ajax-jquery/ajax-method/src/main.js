@@ -1,27 +1,60 @@
-console.log('Fetch API');
+console.log('Ajax Method');
 
-// Fetch APIFetch API jest nowym interfejsem do pobierania i wysyłania danych za pomocą HTTP. Jest podobne do XMLHttpRequest’ ale ma więcej możliwości. Pisanie zapytań przy użyciu Fetch API jest szybsze i przyjemniejsze niż za pomocą XMLHttpRequest.
+// Metoda $.ajax()
+// Funkcja $.ajax() daje możliwość pobierania/wysyłania danych w dowolnym formacie, np. JSON lub XML oraz za pomocą dowolnej metody (GET, POST, PUT, DELATE, OPTION).
 
-// Fetch API definiuje 2 główne obiekty:
+// Funkcja ta daje duże możliwości dostosowywania jej użycia – można tworzyć obsługę błędów, wykonywać operacje w zależności od zwróconego błędu (np. błąd z kodem 404).
 
-// Request – https://developer.mozilla.org/en-US/docs/Web/API/Request
-// Response – https://developer.mozilla.org/en-US/docs/Web/API/Response
-// Oraz dostarcza globalną funkcję fetch(), przy pomocy której programista dokonuje zapytań AJAX.
+// Pierwszym sposobem użycia $.ajax() jest wywołanie tej funkcji z jednym parametrem – obiektem przechowującym ustawienia połączenia.
 
-// Fetch API prowadzi także wsparcie dla CORS.
+// Gdzie:
 
-// CORS (ang. Cross-origin resource sharing ) – mechanizm bezpieczeństwa umożliwiający współdzielenie lub blokowanie zasobów pomiędzy serwerami. A ściślej rzecz biorąc chodzi o możliwość (lub jej brak) wykonywania żądań AJAX. https://pl.wikipedia.org/wiki/Cross-Origin_Resource_Sharing
+// url – źródło danych
+// statusCode – funkcje wywoływane po otrzymaniu określonego kodu
+// success – funkcja wywoływana po prawidłowym otrzymaniu danych
+// error – funkcja uruchamiana w momencie pojawienia się błędu
 
-// Przykłady użycia Fetch API – https://developer.mozilla.org/en-US/docs/Web/API/Fetch_API/Using_Fetch
+// Drugim sposobem jest użycie metod dostępnych dla obiektu jqXHR
+// $.ajax() podobnie jak w metody $.get(), czy $.getJSON() zwraca dane jako obiekt jqXHR. Z tego powodu mamy do dyspozycji metody takie jak .done() czy .fail()
+
+// Więcej na temat $.ajax(): https://api.jquery.com/jquery.ajax/
 
 
-setInterval(() => {
-    fetch('https://jsonplaceholder.typicode.com/users/1')
-        .then(response => response.json())
-        .then((data) => {
+$(document).ready(function () {
+
+    $.ajax({
+        url: 'https://jsonplaceholder.typicode.com/users/1',
+        statusCode: {
+            200: function () {
+                console.log('OK - wszystko gra!')
+            }
+        },
+        success: function (data) {
+            console.log(data);
             console.log(data.name);
             console.log(data.email);
+        },
+        error: function (error) {
+            console.log(error);
+        }
 
+    });
+
+    $.ajax({
+        url: 'https://jsonplaceholder.typicode.com/users/1',
+        statusCode: {
+            200: function () {
+                console.log('OK - wszystko gra!')
+            }
+        },
+
+    })
+        .done(function (data) {
+            console.log(data);
+            console.log(data.name);
+            console.log(data.email);
         })
-}, 10000);
-
+        .fail(function (error) {
+            console.log(error);
+        })
+})
