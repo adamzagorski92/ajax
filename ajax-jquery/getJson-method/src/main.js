@@ -1,27 +1,29 @@
-console.log('Fetch API');
+// Metoda jQuery .getJSON() pozwala na pobieranie danych w formacie JSON.
 
-// Fetch APIFetch API jest nowym interfejsem do pobierania i wysyłania danych za pomocą HTTP. Jest podobne do XMLHttpRequest’ ale ma więcej możliwości. Pisanie zapytań przy użyciu Fetch API jest szybsze i przyjemniejsze niż za pomocą XMLHttpRequest.
+// Metoda ta działa bardzo podobnie do $.get(), z tą różnicą, że nie mamy możliwości pobrać danych w innym formacie niż JSON.
 
-// Fetch API definiuje 2 główne obiekty:
+// Dokładnie tak jak w przypadku metody $.get(), $.getJSON() możemy użyć na dwa sposoby:
 
-// Request – https://developer.mozilla.org/en-US/docs/Web/API/Request
-// Response – https://developer.mozilla.org/en-US/docs/Web/API/Response
-// Oraz dostarcza globalną funkcję fetch(), przy pomocy której programista dokonuje zapytań AJAX.
+// 1. Podając dwa parametry (źródło danych oraz funkcja anonimowa)
 
-// Fetch API prowadzi także wsparcie dla CORS.
+// 2. Podając jeden parametr (źródło danych)
+//Więcej na temat metody $.getJSON(): https://api.jquery.com/jQuery.getJSON/
 
-// CORS (ang. Cross-origin resource sharing ) – mechanizm bezpieczeństwa umożliwiający współdzielenie lub blokowanie zasobów pomiędzy serwerami. A ściślej rzecz biorąc chodzi o możliwość (lub jej brak) wykonywania żądań AJAX. https://pl.wikipedia.org/wiki/Cross-Origin_Resource_Sharing
-
-// Przykłady użycia Fetch API – https://developer.mozilla.org/en-US/docs/Web/API/Fetch_API/Using_Fetch
-
-
-setInterval(() => {
-    fetch('https://jsonplaceholder.typicode.com/users/1')
-        .then(response => response.json())
-        .then((data) => {
+$(document).ready(function () {
+    $.getJSON('https://jsonplaceholder.typicode.com/users/1', function (data) {
+        console.log(data);
+        console.log(data.name);
+        console.log(data.email);
+    })
+    
+    $.getJSON('https://jsonplaceholder.typicode.com/users/1')
+        .done(function (data) {
+            console.log(data);
             console.log(data.name);
             console.log(data.email);
-
         })
-}, 10000);
+        .fail(function (error) {
+            console.log(error)
+        })
 
+});
